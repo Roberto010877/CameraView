@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiApp1.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MauiApp1.ViewModels"
+    Title="LoginPage">
+
+    <ContentPage.BindingContext>
+        <vm:LoginVM />
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+
+        <StackLayout
+            Grid.Row="1"
+            Orientation="Vertical"
+            Spacing="10">
+            <Image
+                HeightRequest="100"
+                HorizontalOptions="Center"
+                Source="dotnet_bot.svg"
+                WidthRequest="100" />
+
+            <Label
+                FontAttributes="Bold"
+                FontSize="Title"
+                HorizontalOptions="Center"
+                Text="Bienvenido"
+                TextColor="#101010" />
+
+            <StackLayout
+                Margin="0,10"
+                HorizontalOptions="Center"
+                Orientation="Vertical"
+                Spacing="5">
+                <Label
+                    FontSize="Small"
+                    HorizontalOptions="Center"
+                    Text="Ingrese sus credenciales"
+                    TextColor="LightSlateGray" />
+                <Label
+                    FontSize="Small"
+                    HorizontalOptions="Center"
+                    Text="*Usuario:  Admin"
+                    TextColor="LightSlateGray" />
+                <Label
+                    FontSize="Small"
+                    HorizontalOptions="Center"
+                    Text="*Contraseña:  123"
+                    TextColor="LightSlateGray" />
+            </StackLayout>
+
+
+            <StackLayout
+                Padding="30,0"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Vertical"
+                Spacing="5">
+                <Entry Placeholder="Usuario" Text="{Binding Usuario}" />
+                <Entry
+                    IsPassword="True"
+                    Placeholder="Contraseña"
+                    Text="{Binding Password}" />
+
+                <Button
+                    BackgroundColor="#1d94ab"
+                    Command="{Binding LoginCommand}"
+                    FontSize="Medium"
+                    HeightRequest="50"
+                    Text="Iniciar sesion" />
+            </StackLayout>
+
+        </StackLayout>
+    </Grid>
+</ContentPage>

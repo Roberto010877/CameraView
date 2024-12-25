@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiApp1.Views.CategoriasPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:MauiApp1.DTOs"
+    xmlns:util="clr-namespace:MauiApp1.Utilidades"
+    Title="Categorias"
+    BackgroundColor="{StaticResource bgFondo}">
+
+
+    <Grid Margin="5">
+        <Border BackgroundColor="{StaticResource bgFormulario}">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="5" />
+            </Border.StrokeShape>
+
+            <Grid Margin="10" RowSpacing="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+
+                <StackLayout
+                    Grid.Row="0"
+                    HeightRequest="40"
+                    Orientation="Horizontal"
+                    Spacing="8">
+                    <Grid
+                        ColumnDefinitions="1*"
+                        HorizontalOptions="FillAndExpand"
+                        RowDefinitions="1*">
+                        <Entry
+                            HorizontalOptions="FillAndExpand"
+                            Placeholder="Buscar"
+                            Text="{Binding BuscarCategoria}" />
+                        <ImageButton
+                            Padding="3"
+                            BackgroundColor="{StaticResource bgLightGray}"
+                            Command="{Binding LimpiarCommand}"
+                            CornerRadius="4"
+                            HeightRequest="32"
+                            HorizontalOptions="End"
+                            IsVisible="{Binding BtnLimpiarEsVisible}"
+                            Source="close.svg"
+                            WidthRequest="28" />
+                    </Grid>
+
+                    <Button
+                        Padding="4"
+                        BackgroundColor="{StaticResource Gray200}"
+                        Command="{Binding BuscarCommand}"
+                        FontFamily="FaSolid"
+                        FontSize="24"
+                        HeightRequest="35"
+                        Text="{Static util:IconFont.MagnifyingGlass}"
+                        TextColor="Black"
+                        WidthRequest="35" />
+
+                    <Button
+                        Padding="4"
+                        BackgroundColor="{StaticResource Gray200}"
+                        Command="{Binding AgregarCommand}"
+                        FontFamily="FaSolid"
+                        FontSize="24"
+                        HeightRequest="35"
+                        Text="{Static util:IconFont.Plus}"
+                        TextColor="Black"
+                        WidthRequest="35" />
+
+                </StackLayout>
+
+                <BoxView
+                    Grid.Row="1"
+                    HeightRequest="2"
+                    Color="LightGray" />
+
+                <StackLayout Grid.Row="2" Orientation="Horizontal">
+                    <Label
+                        FontSize="Subtitle"
+                        HorizontalOptions="StartAndExpand"
+                        Text="Lista de categorias" />
+                    <ActivityIndicator
+                        HeightRequest="25"
+                        IsRunning="{Binding LoadingEsVisible}"
+                        IsVisible="{Binding LoadingEsVisible}"
+                        VerticalOptions="Start"
+                        Color="Blue" />
+                </StackLayout>
+
+
+                <ScrollView Grid.Row="3" IsVisible="{Binding DataEsVisible}">
+
+                    <CollectionView ItemsSource="{Binding ListaCategorias}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:CategoriaDTO">
+                                <Border Padding="10,5" HorizontalOptions="FillAndExpand">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="5" />
+                                    </Border.StrokeShape>
+
+                                    <StackLayout
+                                        HeightRequest="32"
+                                        Orientation="Horizontal"
+                                        Spacing="2">
+                                        <Label
+                                            HorizontalOptions="StartAndExpand"
+                                            Text="{Binding Nombre}"
+                                            VerticalOptions="Center" />
+                                        <ImageButton
+                                            Padding="3"
+                                            BackgroundColor="{StaticResource bgLightBlue}"
+                                            Command="{Binding BindingContext.EditarCommand, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}"
+                                            CommandParameter="{Binding}"
+                                            CornerRadius="4"
+                                            HeightRequest="30"
+                                            HorizontalOptions="End"
+                                            Source="edit_pencil.svg"
+                                            WidthRequest="28" />
+
+                                        <ImageButton
+                                            Padding="3"
+                                            BackgroundColor="{StaticResource bgLightRed}"
+                                            Command="{Binding BindingContext.EliminarCommand, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}"
+                                            CommandParameter="{Binding}"
+                                            CornerRadius="4"
+                                            HeightRequest="30"
+                                            HorizontalOptions="End"
+                                            Source="trash.svg"
+                                            WidthRequest="28" />
+                                    </StackLayout>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+
+
+
+
+                </ScrollView>
+
+
+            </Grid>
+        </Border>
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiApp1.Views.BarcodePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    Title="BarcodePage"
+    BackgroundColor="{StaticResource bgLightGray}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label
+            Grid.Row="0"
+            Padding="15"
+            FontSize="20"
+            Text="Coloque un código de barras en el interior y centro de la cámara para escanear" />
+        <cv:CameraView
+            x:Name="cameraView"
+            Grid.Row="1"
+            BarCodeDetectionEnabled="True"
+            BarcodeDetected="cameraView_BarcodeDetected"
+            CamerasLoaded="cameraView_CamerasLoaded"
+            HeightRequest="300"
+            HorizontalOptions="FillAndExpand" />
+        <Label
+            Grid.Row="2"
+            Padding="15"
+            FontSize="20"
+            Text="Mantenga el enfoque solo en el código de barras" />
+    </Grid>
+</ContentPage>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiApp1.Views.BuscarProductoPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:MauiApp1.DTOs"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:util="clr-namespace:MauiApp1.Utilidades"
+    Title="BuscarProductoPage">
+
+    <Grid RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackLayout
+            Grid.Row="0"
+            Padding="10"
+            BackgroundColor="{StaticResource bgPrimary}"
+            Orientation="Horizontal"
+            Spacing="20">
+
+            <Button
+                Padding="0"
+                BackgroundColor="{StaticResource bgPrimary}"
+                Command="{Binding VolverCommand}"
+                FontFamily="FaSolid"
+                FontSize="24"
+                HeightRequest="30"
+                Text="{Static util:IconFont.ArrowRotateLeft}"
+                TextColor="White"
+                WidthRequest="30" />
+
+        </StackLayout>
+
+        <StackLayout Grid.Row="1" Margin="10,0">
+            <SearchBar
+                FontSize="14"
+                HeightRequest="35"
+                Placeholder="Buscar producto"
+                Text="{Binding Busqueda}"
+                TextColor="Black">
+                <SearchBar.Behaviors>
+                    <toolkit:UserStoppedTypingBehavior
+                        Command="{Binding EjecutarBusquedaCommand}"
+                        MinimumLengthThreshold="3"
+                        ShouldDismissKeyboardAutomatically="True"
+                        StoppedTypingTimeThreshold="1000" />
+                </SearchBar.Behaviors>
+            </SearchBar>
+        </StackLayout>
+
+
+        <BoxView
+            Grid.Row="2"
+            Margin="10,0"
+            HeightRequest="2"
+            Color="LightGray" />
+
+        <StackLayout
+            Grid.Row="3"
+            Margin="10,0"
+            Orientation="Horizontal">
+            <Label
+                FontSize="Subtitle"
+                HorizontalOptions="StartAndExpand"
+                Text="Lista de productos" />
+            <ActivityIndicator
+                HeightRequest="25"
+                IsRunning="{Binding LoadingEsVisible}"
+                IsVisible="{Binding LoadingEsVisible}"
+                VerticalOptions="Start"
+                Color="Blue" />
+        </StackLayout>
+
+        <ScrollView Grid.Row="4" Margin="10,0">
+
+            <CollectionView
+                ItemsSource="{Binding ListaProducto}"
+                SelectedItem="{Binding ProductoSeleccionado}"
+                SelectionChangedCommand="{Binding ChangedProductoSeleccionadoCommand}"
+                SelectionMode="Single">
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:ProductoDTO">
+                        <Border Padding="10,5" HorizontalOptions="FillAndExpand">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="5" />
+                            </Border.StrokeShape>
+
+                            <Grid Padding="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackLayout Grid.Column="0" Orientation="Vertical">
+                                    <!--<Label Text="{Binding Codigo}"/>-->
+                                    <Label FontAttributes="Bold" Text="{Binding Nombre}" />
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Categoria: " />
+                                        <Label Text="{Binding Categoria.Nombre}" />
+                                    </StackLayout>
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="1*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Text="Cantidad:" />
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            FontAttributes="Bold"
+                                            Text="{Binding Cantidad}" />
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Text="Precio:" />
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            FontAttributes="Bold"
+                                            Text="{Binding Precio, StringFormat='{0:C}'}" />
+                                    </Grid>
+                                </StackLayout>
+                            </Grid>
+
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </ScrollView>
+
+
+
+    </Grid>
+</ContentPage>

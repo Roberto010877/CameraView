@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiApp1.Views.InventarioPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:MauiApp1.DTOs"
+    xmlns:util="clr-namespace:MauiApp1.Utilidades"
+    Title="Inventario"
+    BackgroundColor="{StaticResource bgFondo}">
+
+
+    <Grid Margin="5">
+        <Border BackgroundColor="{StaticResource bgFormulario}">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="5" />
+            </Border.StrokeShape>
+
+            <Grid Margin="10" RowSpacing="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Picker
+                        Title="Categoria"
+                        Grid.Row="0"
+                        ItemsSource="{Binding ListaCategoria}"
+                        SelectedItem="{Binding CategoriaSeleccionada}">
+                        <Picker.ItemDisplayBinding>
+                            <Binding Path="Nombre" />
+                        </Picker.ItemDisplayBinding>
+                    </Picker>
+                    <ActivityIndicator
+                        Grid.Row="0"
+                        HeightRequest="20"
+                        HorizontalOptions="End"
+                        IsRunning="{Binding LoadingCategoriaEsVisible}"
+                        IsVisible="{Binding LoadingCategoriaEsVisible}"
+                        VerticalOptions="Center"
+                        Color="Blue" />
+                </Grid>
+
+                <StackLayout
+                    Grid.Row="1"
+                    HeightRequest="40"
+                    Orientation="Horizontal"
+                    Spacing="8">
+
+                    <Grid
+                        ColumnDefinitions="1*"
+                        HorizontalOptions="FillAndExpand"
+                        RowDefinitions="1*">
+                        <Entry
+                            HorizontalOptions="FillAndExpand"
+                            Placeholder="Buscar"
+                            Text="{Binding BuscarProducto}" />
+                        <ImageButton
+                            Padding="3"
+                            BackgroundColor="{StaticResource bgLightGray}"
+                            Command="{Binding LimpiarCommand}"
+                            CornerRadius="4"
+                            HeightRequest="32"
+                            HorizontalOptions="End"
+                            IsVisible="{Binding BtnLimpiarEsVisible}"
+                            Source="close.svg"
+                            WidthRequest="28" />
+                    </Grid>
+                    <Button
+                        Padding="4"
+                        BackgroundColor="{StaticResource Gray200}"
+                        Command="{Binding BuscarCommand}"
+                        FontFamily="FaSolid"
+                        FontSize="24"
+                        HeightRequest="35"
+                        Text="{Static util:IconFont.MagnifyingGlass}"
+                        TextColor="Black"
+                        WidthRequest="35" />
+
+
+                    <Button
+                        Padding="4"
+                        BackgroundColor="{StaticResource Gray200}"
+                        Command="{Binding IrProductoCommand}"
+                        FontFamily="FaSolid"
+                        FontSize="24"
+                        HeightRequest="35"
+                        Text="{Static util:IconFont.Plus}"
+                        TextColor="Black"
+                        WidthRequest="35" />
+                </StackLayout>
+
+                <BoxView
+                    Grid.Row="2"
+                    HeightRequest="2"
+                    Color="LightGray" />
+
+                <StackLayout Grid.Row="3" Orientation="Horizontal">
+                    <Label
+                        FontSize="Subtitle"
+                        HorizontalOptions="StartAndExpand"
+                        Text="Lista de productos" />
+                    <ActivityIndicator
+                        HeightRequest="25"
+                        IsRunning="{Binding LoadingEsVisible}"
+                        IsVisible="{Binding LoadingEsVisible}"
+                        VerticalOptions="Start"
+                        Color="Blue" />
+                </StackLayout>
+
+
+
+                <ScrollView Grid.Row="4" IsVisible="{Binding DataEsVisible}">
+
+                    <CollectionView ItemsSource="{Binding ListaProductos}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:ProductoDTO">
+                                <Border Padding="10,5" HorizontalOptions="FillAndExpand">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="5" />
+                                    </Border.StrokeShape>
+
+                                    <Grid Padding="5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="8*" />
+                                            <ColumnDefinition Width="2*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout Grid.Column="0" Orientation="Vertical">
+                                            <!--<Label Text="{Binding Codigo}"/>-->
+                                            <Label FontAttributes="Bold" Text="{Binding Nombre}" />
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Categoria: " />
+                                                <Label Text="{Binding Categoria.Nombre}" />
+                                            </StackLayout>
+
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="1*" />
+                                                    <ColumnDefinition Width="1*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+                                                <Label
+                                                    Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    Text="Cantidad:" />
+                                                <Label
+                                                    Grid.Row="1"
+                                                    Grid.Column="0"
+                                                    FontAttributes="Bold"
+                                                    Text="{Binding Cantidad}" />
+                                                <Label
+                                                    Grid.Row="0"
+                                                    Grid.Column="1"
+                                                    Text="Precio:" />
+                                                <Label
+                                                    Grid.Row="1"
+                                                    Grid.Column="1"
+                                                    FontAttributes="Bold"
+                                                    Text="{Binding Precio, StringFormat='{0:C}'}" />
+                                            </Grid>
+                                        </StackLayout>
+                                        <StackLayout
+                                            Grid.Column="1"
+                                            HorizontalOptions="End"
+                                            Orientation="Vertical"
+                                            VerticalOptions="CenterAndExpand">
+                                            <ImageButton
+                                                Padding="5"
+                                                BackgroundColor="{StaticResource bgLightBlue}"
+                                                Command="{Binding BindingContext.EditarCommand, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}"
+                                                CommandParameter="{Binding}"
+                                                CornerRadius="4"
+                                                HeightRequest="45"
+                                                Source="edit_pencil.svg"
+                                                WidthRequest="35" />
+
+                                            <ImageButton
+                                                Padding="5"
+                                                BackgroundColor="{StaticResource bgLightRed}"
+                                                Command="{Binding BindingContext.EliminarCommand, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}"
+                                                CommandParameter="{Binding}"
+                                                CornerRadius="4"
+                                                HeightRequest="45"
+                                                Source="trash.svg"
+                                                WidthRequest="35" />
+                                        </StackLayout>
+                                    </Grid>
+
+
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+
+                </ScrollView>
+
+
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

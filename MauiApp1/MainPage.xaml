@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiApp1.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:util="clr-namespace:MauiApp1.Utilidades"
+    xmlns:vm="clr-namespace:MauiApp1.ViewModels">
+
+    <ScrollView>
+        <Grid
+            Margin="4"
+            ColumnSpacing="4"
+            RowSpacing="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <!--  Fila para el encabezado  -->
+                <RowDefinition Height="Auto" />
+                <!--  Fila para las acciones rápidas  -->
+                <RowDefinition Height="80" />
+                <!--  Filas para los indicadores clave  -->
+                <RowDefinition Height="150" />
+                <RowDefinition Height="150" />
+                <!--  Fila para gráficos o notificaciones  -->
+                <RowDefinition Height="200" />
+            </Grid.RowDefinitions>
+
+            <!--  Encabezado  -->
+            <Label
+                Grid.Row="0"
+                Grid.ColumnSpan="2"
+                FontAttributes="Bold"
+                FontSize="24"
+                HorizontalTextAlignment="Center"
+                Text="Panel de Control de Ventas"
+                TextColor="Black"
+                VerticalTextAlignment="Center" />
+
+            <!--  Acciones rápidas  -->
+            <Button
+                Grid.Row="1"
+                Grid.Column="0"
+                BackgroundColor="#2196F3"
+                Command="{Binding RegistrarCompraCommand}"
+                Text="Registrar Compra"
+                TextColor="White" />
+            <Button
+                Grid.Row="1"
+                Grid.Column="1"
+                BackgroundColor="#4CAF50"
+                Command="{Binding AgregarProductoCommand}"
+                Text="Agregar Producto"
+                TextColor="White" />
+
+            <!--  Indicadores clave  -->
+            <Border
+                Grid.Row="2"
+                Grid.Column="0"
+                StrokeShape="RoundRectangle 2"
+                StrokeThickness="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Row="0"
+                        Grid.RowSpan="2"
+                        Grid.Column="0"
+                        FontFamily="FaSolid"
+                        FontSize="40"
+                        HorizontalTextAlignment="Center"
+                        Text="{Static util:IconFont.EuroSign}"
+                        VerticalTextAlignment="Center" />
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        HorizontalTextAlignment="Center"
+                        Text="Total Ingresos"
+                        VerticalTextAlignment="Center" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Text="{Binding TotalIngresos}"
+                        TextColor="#1d94ab" />
+                </Grid>
+            </Border>
+
+            <Border
+                Grid.Row="2"
+                Grid.Column="1"
+                StrokeShape="RoundRectangle 2"
+                StrokeThickness="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Row="0"
+                        Grid.RowSpan="2"
+                        Grid.Column="0"
+                        FontFamily="FaSolid"
+                        FontSize="40"
+                        HorizontalTextAlignment="Center"
+                        Text="{Static util:IconFont.Tags}"
+                        VerticalTextAlignment="Center" />
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        HorizontalTextAlignment="Center"
+                        Text="Total Ventas"
+                        VerticalTextAlignment="Center" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Text="{Binding TotalVentas}"
+                        TextColor="#1d94ab" />
+                </Grid>
+            </Border>
+
+            <Border
+                Grid.Row="3"
+                Grid.Column="0"
+                StrokeShape="RoundRectangle 2"
+                StrokeThickness="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Row="0"
+                        Grid.RowSpan="2"
+                        Grid.Column="0"
+                        FontFamily="FaSolid"
+                        FontSize="40"
+                        HorizontalTextAlignment="Center"
+                        Text="{Static util:IconFont.BoxesStacked}"
+                        VerticalTextAlignment="Center" />
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        HorizontalTextAlignment="Center"
+                        Text="Total Productos"
+                        VerticalTextAlignment="Center" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Text="{Binding TotalProductos}"
+                        TextColor="#1d94ab" />
+                </Grid>
+            </Border>
+
+            <Border
+                Grid.Row="3"
+                Grid.Column="1"
+                StrokeShape="RoundRectangle 2"
+                StrokeThickness="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Row="0"
+                        Grid.RowSpan="2"
+                        Grid.Column="0"
+                        FontFamily="FaSolid"
+                        FontSize="40"
+                        HorizontalTextAlignment="Center"
+                        Text="{Static util:IconFont.LayerGroup}"
+                        TextColor="Red"
+                        VerticalTextAlignment="Center" />
+
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        HorizontalTextAlignment="Center"
+                        Text="Total Categorias"
+                        VerticalTextAlignment="Center" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Text="{Binding TotalCategorias}"
+                        TextColor="#1d94ab" />
+                </Grid>
+            </Border>
+
+            <!--  Gráficos/Notificaciones  -->
+            <Border
+                Grid.Row="4"
+                Grid.ColumnSpan="2"
+                HeightRequest="200"
+                StrokeShape="RoundRectangle 5"
+                StrokeThickness="2">
+                <Label
+                    HorizontalTextAlignment="Center"
+                    Text="Aquí irán los gráficos o notificaciones"
+                    VerticalTextAlignment="Center" />
+            </Border>
+
+        </Grid>
+    </ScrollView>
+
+</ContentPage>
